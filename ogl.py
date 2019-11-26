@@ -1,9 +1,29 @@
 from OpenGL.GL import *
-from OpenGL.GLU import *
+# from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
 w, h = 500, 500
 SQCOLOR = [1.0, 2.0, 3.0]
+
+
+class Square:
+    def __init__(self, size=100, x=100, y=100):
+        self.size = size
+        self.x = x
+        self.y = y
+        self.color = [1.0, 1.0, 1.0]
+
+    def render(self):
+        glColor3f(*self.color)
+        glBegin(GL_QUADS)
+        glVertex2f(self.x, self.y)
+        glVertex2f(self.x + self.size, self.y)
+        glVertex2f(self.x + self.size, self.y + self.size)
+        glVertex2f(self.x, self.y + self.size)
+        glEnd()
+
+
+SCENE = [Square(100, 100, 100)]
 
 
 # ---Section 1---
@@ -29,8 +49,10 @@ def show_screen():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()
     iterate()
-    glColor3f(*SQCOLOR)
-    square()
+    # glColor3f(*SQCOLOR)
+    # square()
+    for obj in SCENE:
+        obj.render()
     glutSwapBuffers()
 
 
@@ -40,13 +62,13 @@ def keys(key_bytes, x, y):
         glutDestroyWindow(WIND)
         exit()
 
-    global SQCOLOR
+    # global SQCOLOR
     if key == 'r':
-        SQCOLOR = [255.0, 0.0, 0.0]
+        SCENE[0].color = [255.0, 0.0, 0.0]
     elif key == 'g':
-        SQCOLOR = [0.0, 255.0, 0.0]
+        SCENE[0].color = [0.0, 255.0, 0.0]
     elif key == 'b':
-        SQCOLOR = [0.0, 0.0, 255.0]
+        SCENE[0].color = [0.0, 0.0, 255.0]
 
 
 WIND = 0
