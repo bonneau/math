@@ -37,12 +37,19 @@ def show_screen():
 def keys(key_bytes, x, y):
     key = key_bytes.decode(encoding='utf-8')
     if key in ['q', 'Q', chr(27)]:
+        glutDestroyWindow(WIND)
         exit()
 
     global SQCOLOR
-    if key == 'r': SQCOLOR = [255.0, 0.0, 0.0]
-    elif key == 'g': SQCOLOR = [0.0, 255.0, 0.0]
-    elif key == 'b': SQCOLOR = [0.0, 0.0, 255.0]
+    if key == 'r':
+        SQCOLOR = [255.0, 0.0, 0.0]
+    elif key == 'g':
+        SQCOLOR = [0.0, 255.0, 0.0]
+    elif key == 'b':
+        SQCOLOR = [0.0, 0.0, 255.0]
+
+
+WIND = 0
 
 
 def main():
@@ -50,7 +57,10 @@ def main():
     glutInitDisplayMode(GLUT_RGBA)  # Set the display mode to be colored
     glutInitWindowSize(500, 500)  # Set the width and height of your window
     glutInitWindowPosition(0, 0)  # Set the position at which this windows should appear
-    wind = glutCreateWindow("OpenGL Coding Practice")  # Give your window a title
+
+    global WIND
+    WIND = glutCreateWindow("OpenGL Coding Practice")  # Give your window a title
+
     glutDisplayFunc(show_screen)  # Tell OpenGL to call the showScreen method continuously
     glutIdleFunc(show_screen)  # Draw any graphics or shapes in the showScreen function at all times
     glutKeyboardFunc(keys)
