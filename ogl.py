@@ -3,7 +3,6 @@ from OpenGL.GL import *
 from OpenGL.GLUT import *
 
 w, h = 500, 500
-SQCOLOR = [1.0, 2.0, 3.0]
 
 
 class Square:
@@ -26,31 +25,19 @@ class Square:
 SCENE = [Square(100, 100, 100)]
 
 
-# ---Section 1---
-def square():
-    glBegin(GL_QUADS)
-    glVertex2f(100, 100)
-    glVertex2f(200, 100)
-    glVertex2f(200, 200)
-    glVertex2f(100, 200)
-    glEnd()
-
-
-def iterate():
-    glViewport(0, 0, 500, 500)
+def set_projection():
+    global w, h
+    glViewport(0, 0, w, h)
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
-    glOrtho(0.0, 500, 0.0, 500, 0.0, 1.0)
+    glOrtho(0.0, w, 0.0, h, 0.0, 1.0)
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()
 
 
 def show_screen():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    glLoadIdentity()
-    iterate()
-    # glColor3f(*SQCOLOR)
-    # square()
+    set_projection()
     for obj in SCENE:
         obj.render()
     glutSwapBuffers()
@@ -75,12 +62,13 @@ WIND = 0
 
 
 def main():
+    global WIND, w, h
+
     glutInit()  # Initialize a glut instance which will allow us to customize our window
     glutInitDisplayMode(GLUT_RGBA)  # Set the display mode to be colored
-    glutInitWindowSize(500, 500)  # Set the width and height of your window
+    glutInitWindowSize(w, h)  # Set the width and height of your window
     glutInitWindowPosition(0, 0)  # Set the position at which this windows should appear
 
-    global WIND
     WIND = glutCreateWindow("OpenGL Coding Practice")  # Give your window a title
 
     glutDisplayFunc(show_screen)  # Tell OpenGL to call the showScreen method continuously
