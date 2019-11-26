@@ -30,6 +30,10 @@ def set_projection():
     glViewport(0, 0, w, h)
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
+
+
+def set_modelview():
+    global w, h
     glOrtho(0.0, w, 0.0, h, 0.0, 1.0)
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()
@@ -38,6 +42,7 @@ def set_projection():
 def show_screen():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     set_projection()
+    set_modelview()
     for obj in SCENE:
         obj.render()
     glutSwapBuffers()
