@@ -1,5 +1,6 @@
 import sys
 
+from OpenGL.GL import *
 
 def parse(filename):
     vertices = []
@@ -26,6 +27,15 @@ def parse(filename):
             print('"{0}" is a currently unsupported command'.format(cmd))
 
     return vertices, faces
+
+
+def render(vertices, faces):
+    glFrontFace(GL_CCW)
+    for face in faces:
+        glBegin(GL_POLYGON)
+        for idx in range(vertices):
+            glVertex3f(vertices[face[idx] - 1])
+        glEnd()
 
 
 def main(args):
