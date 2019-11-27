@@ -2,6 +2,7 @@ import sys
 
 from OpenGL.GL import *
 
+
 def parse(filename):
     vertices = []
     faces = []
